@@ -51,6 +51,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B51CF79328816A82004B16B8 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B5AB8A4D288152BD00BFD7F3 /* CacheService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		B57F118A287C1A3F0046D224 = {
 			isa = PBXGroup;
 			children = (
@@ -77,7 +85,7 @@
 				B57F11AD287C1C420046D224 /* ViewModels */,
 				B57F11AA287C1BAE0046D224 /* Views */,
 				B57F11AE287C1C650046D224 /* SupportingAssets */,
-				B5AB8A4D288152BD00BFD7F3 /* CacheService.swift */,
+				B51CF79328816A82004B16B8 /* Services */,
 				B57F1196287C1A3F0046D224 /* AppDelegate.swift */,
 				B57F1198287C1A3F0046D224 /* SceneDelegate.swift */,
 				B57F11A4287C1A3F0046D224 /* Info.plist */,

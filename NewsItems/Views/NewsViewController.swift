@@ -45,12 +45,15 @@ extension NewsViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = NewsItemCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NewsItemCell") as! NewsItemCell
         cell.selectionStyle = .none
+        
         let item = viewModel.newsItems[indexPath.row]
+
         cell.configure(headline: item.title,
                        body: item.description,
-                       imageUrl: item.imageUrl)
+                       imageUrl: item.imageUrl,
+                       row: indexPath.row)
         return cell
     }
 
