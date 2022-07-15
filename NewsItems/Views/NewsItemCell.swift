@@ -84,20 +84,25 @@ class NewsItemCell: UITableViewCell {
             // Otherwise fetch and cache the image
             Task {
                 let request = URLRequest(url: imageUrl)
-                let (data, _) = try await URLSession.shared.data(for: request)
-                if let image = UIImage(data: data) {
-                    headerImageView.image = image
-                    CacheService.cache.setObject(image, forKey: NSString(string: imageUrl.absoluteString))
-                    await MainActor.run {
-                        self.setConstraints(imageHeight: image.size.height)
+                do {
+                    let (data, _) = try await URLSession.shared.data(for: request)
+                    if let image = UIImage(data: data) {
+                        headerImageView.image = image
+                        CacheService.cache.setObject(image, forKey: NSString(string: imageUrl.absoluteString))
+                        await MainActor.run {
+                            self.setConstraints(imageHeight: image.size.height)
+                            self.layoutIfNeeded()
+                        }
+                    } else {
+                        // If the image is missing or fails then don't make space for it
+                        self.setConstraints(imageHeight: 0)
                         self.layoutIfNeeded()
                     }
-                } else {
-                    // If the image is missing then don't make space for it
+                } catch {
                     self.setConstraints(imageHeight: 0)
                     self.layoutIfNeeded()
                 }
             }
         }
-        }
+    }
 }

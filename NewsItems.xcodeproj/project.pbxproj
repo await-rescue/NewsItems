@@ -24,7 +24,7 @@
 
 /* Begin PBXFileReference section */
 		B53E72E0287DC1FC006EEB80 /* NewsItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItemCell.swift; sourceTree = "<group>"; };
-		B57F1193287C1A3F0046D224 /* NousTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NousTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B57F1193287C1A3F0046D224 /* NewsItems.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsItems.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B57F1196287C1A3F0046D224 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B57F1198287C1A3F0046D224 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B57F119A287C1A3F0046D224 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 		B57F118A287C1A3F0046D224 = {
 			isa = PBXGroup;
 			children = (
-				B57F1195287C1A3F0046D224 /* NousTest */,
+				B57F1195287C1A3F0046D224 /* NewsItems */,
 				B57F1194287C1A3F0046D224 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -62,12 +62,12 @@
 		B57F1194287C1A3F0046D224 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B57F1193287C1A3F0046D224 /* NousTest.app */,
+				B57F1193287C1A3F0046D224 /* NewsItems.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B57F1195287C1A3F0046D224 /* NousTest */ = {
+		B57F1195287C1A3F0046D224 /* NewsItems */ = {
 			isa = PBXGroup;
 			children = (
 				B57F11BA287C1F560046D224 /* API */,
@@ -77,11 +77,12 @@
 				B57F11AD287C1C420046D224 /* ViewModels */,
 				B57F11AA287C1BAE0046D224 /* Views */,
 				B57F11AE287C1C650046D224 /* SupportingAssets */,
+				B5AB8A4D288152BD00BFD7F3 /* CacheService.swift */,
 				B57F1196287C1A3F0046D224 /* AppDelegate.swift */,
 				B57F1198287C1A3F0046D224 /* SceneDelegate.swift */,
 				B57F11A4287C1A3F0046D224 /* Info.plist */,
 			);
-			path = NousTest;
+			path = NewsItems;
 			sourceTree = "<group>";
 		};
 		B57F11AA287C1BAE0046D224 /* Views */ = {
@@ -139,7 +140,6 @@
 			isa = PBXGroup;
 			children = (
 				B57F11BB287C1F5E0046D224 /* NousAPI.swift */,
-				B5AB8A4D288152BD00BFD7F3 /* CacheService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -147,9 +147,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B57F1192287C1A3F0046D224 /* NousTest */ = {
+		B57F1192287C1A3F0046D224 /* NewsItems */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B57F11A7287C1A3F0046D224 /* Build configuration list for PBXNativeTarget "NousTest" */;
+			buildConfigurationList = B57F11A7287C1A3F0046D224 /* Build configuration list for PBXNativeTarget "NewsItems" */;
 			buildPhases = (
 				B57F118F287C1A3F0046D224 /* Sources */,
 				B57F1190287C1A3F0046D224 /* Frameworks */,
@@ -159,9 +159,9 @@
 			);
 			dependencies = (
 			);
-			name = NousTest;
+			name = NewsItems;
 			productName = NousTest;
-			productReference = B57F1193287C1A3F0046D224 /* NousTest.app */;
+			productReference = B57F1193287C1A3F0046D224 /* NewsItems.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -179,7 +179,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B57F118E287C1A3F0046D224 /* Build configuration list for PBXProject "NousTest" */;
+			buildConfigurationList = B57F118E287C1A3F0046D224 /* Build configuration list for PBXProject "NewsItems" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -192,7 +192,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B57F1192287C1A3F0046D224 /* NousTest */,
+				B57F1192287C1A3F0046D224 /* NewsItems */,
 			);
 		};
 /* End PBXProject section */
@@ -292,7 +292,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -346,7 +346,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -365,7 +365,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = G3688H3UQH;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NousTest/Info.plist;
+				INFOPLIST_FILE = NewsItems/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -392,7 +392,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = G3688H3UQH;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NousTest/Info.plist;
+				INFOPLIST_FILE = NewsItems/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -413,7 +413,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B57F118E287C1A3F0046D224 /* Build configuration list for PBXProject "NousTest" */ = {
+		B57F118E287C1A3F0046D224 /* Build configuration list for PBXProject "NewsItems" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B57F11A5287C1A3F0046D224 /* Debug */,
@@ -422,7 +422,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B57F11A7287C1A3F0046D224 /* Build configuration list for PBXNativeTarget "NousTest" */ = {
+		B57F11A7287C1A3F0046D224 /* Build configuration list for PBXNativeTarget "NewsItems" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B57F11A8287C1A3F0046D224 /* Debug */,
