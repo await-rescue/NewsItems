@@ -21,6 +21,7 @@ class NewsViewController: UITableViewController {
     }
 
     func createBindings() {
+        // Whenever news items update, reload the table data
         cancellable = viewModel.$newsItems
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { items in
@@ -60,11 +61,6 @@ extension NewsViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         UITableView.automaticDimension
-    }
-    
-    func onLayoutChange() {
-        tableView.beginUpdates()
-        tableView.endUpdates()
     }
 }
 /// MARK: - Mail Compose delegate methods
