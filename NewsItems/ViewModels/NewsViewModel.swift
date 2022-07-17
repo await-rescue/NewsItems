@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import UIKit
 import Combine
 
 class NewsViewModel {
@@ -20,8 +21,21 @@ class NewsViewModel {
         newsItemsCancellable?.cancel()
         newsItemsCancellable = NousAPI.newsItems()
             .sink(receiveCompletion: { _ in }, receiveValue: {
-                self.newsItems = $0.items
-                self.allNewsItems = $0.items
+                let items = $0.items
+                Task {
+                    // Fetch images and cache them
+                    for item in items {
+                        let request = URLRequest(url: item.imageUrl)
+                        async let (imageData, _) = try URLSession.shared.data(for: request)
+                        if let image = try await UIImage(data: imageData) {
+                            CacheService.cache.setObject(image, forKey: NSString(string: item.imageUrl.absoluteString))
+                        }
+                    }
+                    
+                    // Assign data
+                    self.newsItems = items
+                    self.allNewsItems = items
+                }
             })
     }
 

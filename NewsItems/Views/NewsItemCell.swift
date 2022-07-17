@@ -37,11 +37,14 @@ class NewsItemCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func storeConstraints(imageHeight: CGFloat = 250) {
+    private func storeConstraints(imageHeight: CGFloat) {
+        let imageHeightConstraint = headerImageView.heightAnchor.constraint(equalToConstant: imageHeight)
+        imageHeightConstraint.priority = .defaultHigh
+        
         imageConstraints = [
             headerImageView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: 10),
             headerImageView.widthAnchor.constraint(equalTo: contentView.layoutMarginsGuide.widthAnchor),
-            headerImageView.heightAnchor.constraint(equalToConstant: imageHeight),
+            imageHeightConstraint,
             headerImageView.centerXAnchor.constraint(equalTo: contentView.layoutMarginsGuide.centerXAnchor),
         ]
         
@@ -53,7 +56,7 @@ class NewsItemCell: UITableViewCell {
         ]
     }
     
-    func reactivateConstraints(imageHeight: CGFloat = 250) {
+    private func activateConstraints(imageHeight: CGFloat = 200) {
         // Remove existing constraints and replace them with a modified image height
         for constraint in imageConstraints {
             constraint.isActive = false
@@ -65,19 +68,13 @@ class NewsItemCell: UITableViewCell {
         storeConstraints(imageHeight: imageHeight)
         let constraints = imageConstraints + stackViewConstraints
         NSLayoutConstraint.activate(constraints)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        storeConstraints()
-        reactivateConstraints()
+        self.layoutIfNeeded()
     }
     
     /// Configure and add all the views to our contentView
     private func setupViews() {
         headerImageView.contentMode = .scaleAspectFit
         headerImageView.clipsToBounds = true
-        headerImageView.frame = CGRect(x: 0,y: 0, width: 100, height: 100)
         headerImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(headerImageView)
 
@@ -90,38 +87,10 @@ class NewsItemCell: UITableViewCell {
         layoutIfNeeded()
     }
     
-    func configure(headline: String, body: String, imageUrl: URL, row: Int) {
-        headerImageView.image = nil
+    func configure(headline: String, body: String, image: UIImage, row: Int) {
+        headerImageView.image = image
         self.headline.text = headline
         self.body.text = body
-        
-        // If we find a cached version we use that
-        if let cachedImage = CacheService.cache.object(forKey: NSString(string: imageUrl.absoluteString)) {
-            self.headerImageView.image = cachedImage
-            self.reactivateConstraints(imageHeight: cachedImage.size.height)
-            self.layoutIfNeeded()
-        } else {
-            // Otherwise fetch and cache the image
-            Task {
-                let request = URLRequest(url: imageUrl)
-                do {
-                    let (data, _) = try await URLSession.shared.data(for: request)
-
-                    if let image = UIImage(data: data) {
-                        headerImageView.image = image
-                        CacheService.cache.setObject(image, forKey: NSString(string: imageUrl.absoluteString))
-                        await MainActor.run {
-                            self.reactivateConstraints(imageHeight: image.size.height)
-                            self.layoutIfNeeded()
-                        }
-                    }
-                } catch {
-                    // If the image is missing or fails then don't make space for it
-                    print(error)
-                    self.reactivateConstraints(imageHeight: 0)
-                    self.layoutIfNeeded()
-                }
-            }
-        }
+        activateConstraints(imageHeight: headerImageView.image?.size.height ?? 0)
     }
 }

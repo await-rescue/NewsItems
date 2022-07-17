@@ -17,7 +17,8 @@ class NewsViewController: UITableViewController {
         createBindings()
         configureSearchController()
         tableView.register(NewsItemCell.self, forCellReuseIdentifier: "NewsItemCell")
-        tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 300
+        tableView.rowHeight = UITableView.automaticDimension
     }
 
     func createBindings() {
@@ -49,10 +50,11 @@ extension NewsViewController {
         cell.selectionStyle = .none
         
         let item = viewModel.newsItems[indexPath.row]
+        let cachedImage = CacheService.cache.object(forKey: NSString(string: item.imageUrl.absoluteString)) ?? UIImage()
 
         cell.configure(headline: item.title,
                        body: item.description,
-                       imageUrl: item.imageUrl,
+                       image: cachedImage,
                        row: indexPath.row)
         return cell
     }
