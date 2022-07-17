@@ -22,6 +22,10 @@ class NewsViewModel {
         newsItemsCancellable = NousAPI.newsItems()
             .sink(receiveCompletion: { _ in }, receiveValue: {
                 let items = $0.items
+                // Set initial data
+                self.newsItems = items
+                self.allNewsItems = items
+
                 Task {
                     // Fetch images and cache them
                     for item in items {
@@ -32,9 +36,8 @@ class NewsViewModel {
                         }
                     }
                     
-                    // Assign data
+                    // Trigger an update once images are loaded async
                     self.newsItems = items
-                    self.allNewsItems = items
                 }
             })
     }
