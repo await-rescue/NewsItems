@@ -87,10 +87,14 @@ class NewsItemCell: UITableViewCell {
         layoutIfNeeded()
     }
     
-    func configure(headline: String, body: String, image: UIImage, row: Int) {
-        headerImageView.image = image
+    func configure(headline: String, body: String, row: Int) {
         self.headline.text = headline
         self.body.text = body
         activateConstraints(imageHeight: headerImageView.image?.size.height ?? 0)
+    }
+    
+    func setImage(_ image: UIImage) {
+        headerImageView.image = image
+        activateConstraints(imageHeight: image.size.height)
     }
 }

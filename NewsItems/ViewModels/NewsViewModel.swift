@@ -22,12 +22,12 @@ class NewsViewModel {
         newsItemsCancellable = NousAPI.newsItems()
             .sink(receiveCompletion: { _ in }, receiveValue: {
                 let items = $0.items
-                // Set initial data
+                // Set data
                 self.newsItems = items
                 self.allNewsItems = items
-
-                Task {
-                    // Fetch images and cache them
+                
+                // Fetch images and cache them in the background
+                Task.detached(priority: .background) {
                     for item in items {
                         let request = URLRequest(url: item.imageUrl)
                         async let (imageData, _) = try URLSession.shared.data(for: request)
@@ -35,9 +35,6 @@ class NewsViewModel {
                             CacheService.cache.setObject(image, forKey: NSString(string: item.imageUrl.absoluteString))
                         }
                     }
-                    
-                    // Trigger an update once images are loaded async
-                    self.newsItems = items
                 }
             })
     }
