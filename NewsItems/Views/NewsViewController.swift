@@ -52,12 +52,12 @@ extension NewsViewController {
         let item = viewModel.newsItems[indexPath.row]
 
         cell.configure(headline: item.title,
-                       body: item.description,
-                       row: indexPath.row)
+                       body: item.description)
         
         // Set an indicator of what row the cell was originally intended for
         cell.tag = indexPath.row
-        
+        // Clear the image in case we are unable to replace it when the cell is reused
+        cell.setImage(nil)
         // Check the cache first, if cache misses, async load the image
         if let cachedImage = CacheService.cache.object(forKey: NSString(string: item.imageUrl.absoluteString)) {
             cell.setImage(cachedImage)
@@ -66,9 +66,9 @@ extension NewsViewController {
                 let request = URLRequest(url: item.imageUrl)
                 async let (imageData, _) = try URLSession.shared.data(for: request)
                 if let image = try await UIImage(data: imageData) {
-                    CacheService.cache.setObject(image, forKey: NSString(string: item.imageUrl.absoluteString))
                     if cell.tag == indexPath.row {
                         cell.setImage(image)
+                        CacheService.cache.setObject(image, forKey: NSString(string: item.imageUrl.absoluteString))
                         tableView.reloadRows(at: [indexPath], with: .fade)
                     }
                 }
